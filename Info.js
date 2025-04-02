@@ -8,26 +8,24 @@ const emailError = document.getElementById('email-error');
 const messageError = document.getElementById('message-error');
 const userLocation = document.getElementById('user-location');
 
-// 1. Use BOM Property: `localStorage` to store data on the user's browser
-function saveFormDataToLocalStorage() {
-    const name = nameInput.value;
-    const email = emailInput.value;
-    const message = messageInput.value;
 
-    // Save form data to localStorage
-    window.localStorage.setItem('contactFormData', JSON.stringify({ name, email, message }));
-}
 
-// 2. Use BOM Method: `navigator.geolocation` to get the user's location
-function getUserLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            userLocation.innerHTML = `Your location: Latitude ${latitude}, Longitude ${longitude}`;
-        });
+// 2. BOM
+let solution = "yes"; // Set the solution to "yes"
+alert('Do you want to do a WNBA short quiz?');
+
+// Allow the user 5 attempts to answer correctly
+for (let i = 0; i < 2; i++) {
+    let answer = prompt('Do you know much about Women Basketball? Yes or No');
+
+    // Check if the user input matches the solution
+    if (answer.toLowerCase() === solution) {
+        alert('Go ahead and sign up');
+        break; // Exit the loop if the user guesses correctly
+    } else if (i < 4) {
+        alert('Incorrect answer. Try again!'); // Show a retry message for incorrect answers
     } else {
-        userLocation.innerHTML = "Geolocation is not supported by this browser.";
+        alert('You have used all attempts. Better luck next time!');
     }
 }
 
@@ -92,5 +90,3 @@ messageInput.addEventListener('input', () => {
     }
 });
 
-// Call function to get the user's location
-getUserLocation();
